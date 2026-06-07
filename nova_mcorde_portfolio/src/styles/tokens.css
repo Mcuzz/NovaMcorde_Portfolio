@@ -1,0 +1,15 @@
+:root {
+  --color-bg: #ffffff;
+  --color-bg-soft: #f5f4f0;
+  --color-text: #11110f;
+  --color-text-muted: #6b6b66;
+  --color-text-soft: #a8a89f;
+  --color-line: rgba(0, 0, 0, 0.18);
+  --color-line-soft: rgba(0, 0, 0, 0.1);
+  --color-accent: #7f77dd;
+  --color-cloud: #dff0fb;
+  --font-helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-hk: 'HK Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --sidebar-width: 292px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}

@@ -1,0 +1,74 @@
+.wave-text {
+  display: grid;
+  width: fit-content;
+  font-family: var(--font-helvetica);
+}
+
+.wave-text__line {
+  display: block;
+}
+
+.wave-text__unit {
+  display: inline-block;
+  animation: italic-wave 3.8s ease-in-out infinite;
+  animation-delay: var(--wave-delay);
+  transform-origin: 50% 80%;
+  will-change: transform;
+}
+
+@keyframes italic-wave {
+  0%,
+  30%,
+  72%,
+  100% {
+    font-style: normal;
+    transform: translateY(0) skewX(0deg);
+  }
+
+  42%,
+  55% {
+    font-style: italic;
+    transform: translateY(-0.045em) skewX(-7deg);
+  }
+}
+
+@keyframes section-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes snap-flash {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -42%) scale(0.96);
+  }
+
+  24%,
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -58%) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}
