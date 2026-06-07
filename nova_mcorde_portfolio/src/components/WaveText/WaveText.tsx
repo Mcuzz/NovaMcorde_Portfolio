@@ -6,9 +6,17 @@ type WaveTextProps = {
   lines: WaveTextLine[]
   className?: string
   ariaLabel: string
+  globalOffset?: number // offset global de sílabas para la ola continua
+  waveId?: string       // id único para coordinar animaciones entre componentes
 }
 
-export function WaveText({ as: Component = 'div', lines, className = '', ariaLabel }: WaveTextProps) {
+export function WaveText({
+  as: Component = 'div',
+  lines,
+  className = '',
+  ariaLabel,
+  globalOffset = 0,
+}: WaveTextProps) {
   const lineOffsets = lines.map((_, lineIndex) =>
     lines.slice(0, lineIndex).reduce((total, line) => total + line.length, 0),
   )
@@ -18,13 +26,16 @@ export function WaveText({ as: Component = 'div', lines, className = '', ariaLab
       {lines.map((line, lineIndex) => (
         <span className="wave-text__line" aria-hidden="true" key={`${line.join('-')}-${lineIndex}`}>
           {line.map((syllable, syllableIndex) => {
-            const index = lineOffsets[lineIndex] + syllableIndex
+            const localIndex = lineOffsets[lineIndex] + syllableIndex
+            const globalIndex = globalOffset + localIndex
+            // Delay en función del índice global para que la ola sea continua
+            const delay = `${globalIndex * 0.11}s`
 
             return (
               <span
                 className="wave-text__unit"
-                key={`${syllable}-${index}`}
-                style={{ '--wave-delay': `${index * 0.13}s` } as CSSProperties}
+                key={`${syllable}-${localIndex}`}
+                style={{ '--wave-delay': delay } as CSSProperties}
               >
                 {syllable}
               </span>
