@@ -65,18 +65,26 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
 
       <hr className="divider" />
 
-      <section className="first-meet" aria-labelledby="first-meet__title">
-        <h3 id="first-meet__title">Our first meet</h3>
-<div className="first-meet__content">
-    <p>
-    Explora algunos de mis proyectos en esta vista previa.
-  </p>
-  
-  <Carousel3D projects={projects} autoPlay={true} interval={4000} />
-</div>
-       
-      </section>
+      <div className="first-meet__content">
+        <div className="home-section__intro">
+          <p>
+            <strong>Our first meet.</strong> Explora algunos de mis proyectos en
+            esta vista previa.
+          </p>
+        </div>
 
+        <Carousel3D projects={projects} autoPlay={true} interval={4000} />
+      </div>
+
+      <footer className="section-footer">
+        <div className="section-footer__line" />
+
+        <div className="section-footer__content">
+          <p>Designed & developed by Natalia.</p>
+
+          <p>Built with React & TypeScript.</p>
+        </div>
+      </footer>
     </section>
   );
 }

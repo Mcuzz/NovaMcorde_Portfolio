@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 type Project = {
   title: string;
   image: string;
+  description: string;
+  stack: string[];
 };
 
 type Props = {
@@ -18,9 +20,12 @@ export default function Carousel3D({
 }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const [flippedCard, setFlippedCard] = useState<number | null>(null);
+
+  const [paused, setPaused] = useState(false);
+
   const count = projects.length;
 
-  // Precalcular ángulos
   const angleStep = useMemo(() => 360 / count, [count]);
 
   const next = () => {
@@ -31,15 +36,25 @@ export default function Carousel3D({
     setActiveIndex((prev) => (prev - 1 + count) % count);
   };
 
-  useEffect(() => {
-    if (!autoPlay) return;
+  const toggleCard = (index: number) => {
+    if (flippedCard === index) {
+      setFlippedCard(null);
+      setPaused(false);
 
-    const id = setInterval(() => {
-      next();
-    }, interval);
+      return;
+    }
+
+    setFlippedCard(index);
+    setPaused(true);
+  };
+
+  useEffect(() => {
+    if (!autoPlay || paused) return;
+
+    const id = setInterval(next, interval);
 
     return () => clearInterval(id);
-  }, [autoPlay, interval, count]);
+  }, [autoPlay, interval, paused, count]);
 
   return (
     <div className="carousel3d-wrapper">
@@ -54,21 +69,63 @@ export default function Carousel3D({
 
           return (
             <div
-              key={i}
+              key={project.title}
               className="carousel3d__item"
               style={{
                 transform: `rotateY(${rotate}deg) translateZ(380px)`,
               }}
             >
-              <img src={project.image} alt={project.title} />
+              <div
+                className={`project-card ${
+                  flippedCard === i ? "project-card--flipped" : ""
+                }`}
+                onClick={() => toggleCard(i)}
+              >
+                {/* Frente */}
+
+                <div className="project-card__front">
+                  <img src={project.image} alt={project.title} />
+                </div>
+
+                {/* Atrás */}
+
+                <div className="project-card__back">
+                  <h3>{project.title}</h3>
+
+                  <p>{project.description}</p>
+
+                  <div className="project-card__stack">
+                    {project.stack.map((tech) => (
+                      <span key={tech}>{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           );
         })}
       </div>
-
       <div className="carousel3d-controls">
-        <button onClick={prev}>Prev</button>
-        <button onClick={next}>Next</button>
+        <button
+          type="button"
+          className="carousel3d-button"
+          onClick={prev}
+          aria-label="Previous project"
+        >
+          ←
+        </button>
+
+        <button
+          type="button"
+          className="carousel3d-button"
+          onClick={() => {
+            setPaused(false);
+            next();
+          }}
+          aria-label="Next project"
+        >
+          →
+        </button>
       </div>
     </div>
   );
