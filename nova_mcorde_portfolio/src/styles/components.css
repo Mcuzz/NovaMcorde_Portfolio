@@ -5,25 +5,25 @@
 }
 
 .face-nav__header {
-  display: grid;
-  grid-template-columns: 1fr 72px 1fr;
-  align-items: end;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
-  min-height: 42px;
+  min-height: 82px;
 }
 
 .face-nav__header p {
   margin: 0;
-  max-width: 118px;
+  max-width: 340px;
   font-family: var(--font-hk);
-  font-size: 8.5px;
+  font-size: 10.5px;
   font-style: italic;
-  line-height: 1.0;
+  line-height: 1.1;
   letter-spacing: -0.01em;
   color: var(--color-text-muted);
 }
 
 .face-nav__header span {
+  width: 100%;
   align-self: start;
   height: 1px;
   margin-top: 3px;
@@ -31,6 +31,7 @@
 }
 
 .face-nav__header strong {
+  align-self: flex-end;
   font-size: 20px;
   font-weight: 400;
   letter-spacing: -0.08em;
@@ -41,8 +42,8 @@
 
 .face-nav__orb {
   position: relative;
-  width: 256px;
-  height: 256px;
+  width: 260px;
+  height: 260px;
   margin-top: 16px;
   /* Espacio extra a la derecha para los labels de PROJECTS y SKILLS */
   margin-right: 60px;
@@ -232,10 +233,10 @@
 
 .home-section__welcome {
   margin: 0;
-  font-weight: 700;
-  font-size: 13px;
-  text-align: center;
-  color: var(--color-text-muted);
+  font-family: var(--font-hk);
+  font-size: clamp(14px, 1.3vw, 17px);
+  line-height: 1.45;
+  text-align: right;
 }
 
 .home-section__actions {
@@ -264,39 +265,79 @@
   transform: translateY(-1px);
 }
 
-/* ─── First Meet ──────────────────────────────── */
-
-.first-meet {
-  border-top: 1px solid var(--color-line);
-  padding-top: 18px;
+/* ─── First Meet / Carousel 3D ───────────────────────────────── */
+.carousel3d-wrapper {
+  position: relative;
+  perspective: 1200px;
+  width: 100%;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.first-meet h2 {
-  margin: 0 0 20px;
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: -0.04em;
+.carousel3d {
+  position: relative;
+  width: 200px;
+  height: 260px;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
 }
 
-.first-meet__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
-  gap: 20px;
+.carousel3d__item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
+
+.carousel3d__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  user-select: none;
+  pointer-events: none;
+}
+
+.carousel3d-controls {
+  position: absolute;
+  bottom: -50px;
+  display: flex;
+  gap: 12px;
+}
+/* fin de cambios con ello */
 
 /* Nubes con gradiente celeste como en el diseño */
-.first-meet__grid span {
-  position: relative;
-  display: block;
-  aspect-ratio: 1.62;
-  overflow: hidden;
-  border-radius: 12px;
-  background:
-    radial-gradient(ellipse 60% 55% at 50% 55%, rgba(255,255,255,0.9) 0%, transparent 70%),
-    radial-gradient(ellipse 38% 40% at 30% 62%, rgba(255,255,255,0.7) 0%, transparent 60%),
-    radial-gradient(ellipse 32% 35% at 72% 65%, rgba(255,255,255,0.6) 0%, transparent 55%),
-    linear-gradient(160deg, #c5e8fc 0%, #a8d8f8 40%, #b8e4fb 100%);
+.first-meet__content {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
+.first-meet__title {
+  margin: 0;
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.1em;
+  line-height: 0.9;
+}
+.first-meet__-content p {
+  margin: 0;
+  font-family: var(--font-hk);
+  font-size: clamp(14px, 1.3vw, 17px);
+  line-height: 1.45;
+  text-align: justify;
+}
+
+/* ─── Divider ─────────────────────────────────── */
+.divider {
+  margin: 10px 0;
+  border: 0;
+  height: 1px;
+  background: var(--color-line);
+}
+
 
 /* ─── Section Shell ───────────────────────────── */
 

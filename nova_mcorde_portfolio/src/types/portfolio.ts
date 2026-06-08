@@ -19,6 +19,7 @@ export type Project = {
   stack: string[]
   href?: string
   status?: 'live' | 'soon'
+  image: string
 }
 
 export type SkillGroup = {

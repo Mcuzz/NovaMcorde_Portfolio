@@ -29,7 +29,7 @@ export function WaveText({
             const localIndex = lineOffsets[lineIndex] + syllableIndex
             const globalIndex = globalOffset + localIndex
             // Delay en función del índice global para que la ola sea continua
-            const delay = `${globalIndex * 0.11}s`
+            const delay = `${globalIndex * 0.08}s`
 
             return (
               <span

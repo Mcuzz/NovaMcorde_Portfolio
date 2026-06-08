@@ -1,13 +1,18 @@
-import { WaveText } from '../components/WaveText/WaveText'
-import { nameWaveLines, profile, roleWaveLines } from '../data/portfolio'
-import type { SectionId } from '../types/portfolio'
+import { WaveText } from "../components/WaveText/WaveText";
+import { nameWaveLines, profile, roleWaveLines } from "../data/portfolio";
+import type { SectionId } from "../types/portfolio";
+import Carousel3D from "../components/Carrucel/Carousel3D";
+import { projects } from "../data/portfolio";
 
 // Calcula el total de sílabas en roleWaveLines para que nameWaveLines continúe desde ahí
-const roleSyllableCount = roleWaveLines.reduce((acc, line) => acc + line.length, 0)
+const roleSyllableCount = roleWaveLines.reduce(
+  (acc, line) => acc + line.length,
+  0,
+);
 
 type HomeSectionProps = {
-  onNavigate: (section: SectionId) => void
-}
+  onNavigate: (section: SectionId) => void;
+};
 
 export function HomeSection({ onNavigate }: HomeSectionProps) {
   return (
@@ -21,7 +26,7 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
           className="home-title"
           globalOffset={0}
         />
-        {/* Ola continúa en "Natalia Yamileth Urias Velasquez" */}
+        {/*Ola continúa en "Natalia Yamileth Urias Velasquez" */}
         <WaveText
           as="p"
           lines={nameWaveLines}
@@ -34,31 +39,44 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
 
       <div className="home-section__intro">
         <p>
-          <strong>Programador Full Stack Junior aún estudiando Ingeniería en Software.</strong> Con
-          intereses en desarrollo web, interfaces modernas/con esencia, experiencias interactivas,
-          inteligencia artificial generativa y arquitectura de sistemas que impulsen la calidad,
-          estética y escalabilidad.
+          <strong>
+            Programador Full Stack Junior aún estudiando Ingeniería en Software.
+          </strong>{" "}
+          Con intereses en desarrollo web, interfaces modernas/con esencia,
+          experiencias interactivas, inteligencia artificial generativa y
+          arquitectura de sistemas que impulsen la calidad, estética y
+          escalabilidad.
         </p>
-        <p className="home-section__welcome">Seas bienvenido al espacio digital que alberga un poco de mi alma.</p>
+        <p className="home-section__welcome">
+          <strong>
+            Seas bienvenido al espacio digital que alberga un poco de mi alma.
+          </strong>
+        </p>
       </div>
 
       <div className="home-section__actions" aria-label="Acciones principales">
-        <button type="button" onClick={() => onNavigate('projects')}>
+        <button type="button" onClick={() => onNavigate("projects")}>
           Ver proyectos
         </button>
-        <button type="button" onClick={() => onNavigate('about')}>
+        <button type="button" onClick={() => onNavigate("about")}>
           Sobre mí
         </button>
       </div>
 
-      <section className="first-meet" aria-labelledby="first-meet-title">
-        <h2 id="first-meet-title">Our first meet</h2>
-        <div className="first-meet__grid">
-          <span />
-          <span />
-          <span />
-        </div>
+      <hr className="divider" />
+
+      <section className="first-meet" aria-labelledby="first-meet__title">
+        <h3 id="first-meet__title">Our first meet</h3>
+<div className="first-meet__content">
+    <p>
+    Explora algunos de mis proyectos en esta vista previa.
+  </p>
+  
+  <Carousel3D projects={projects} autoPlay={true} interval={4000} />
+</div>
+       
       </section>
+
     </section>
-  )
+  );
 }

@@ -1,20 +1,21 @@
 import { SectionShell } from './SectionShell'
 
-const traits = ['café lover', 'gamer casual', 'aprendiz perpetua', 'Hermosillo, MX', 'open to remote']
+//por favor cambia esto pronto...
+const traits = ['+3 coffeE cups per day', 'a kind of artist', 'aprendiz perpetua', 'Hermosillo, MX', 'open to remote', 'Wish materializer']
 
 export function AboutSection() {
   return (
     <SectionShell eyebrow="Sobre mi forma de construir" title="About me">
       <div className="copy-stack">
         <p>
-          Soy desarrolladora junior con un ojo puesto en el código y el otro en el diseño. Me interesa
-          construir experiencias web que sean técnicamente sólidas, pero también memorables y con
-          personalidad.
+          Soy desarrolladora junior interesada en la interacción humano–computadora y en el diseño de sistemas capaces de resolver problemas reales. Disfruto construir software que combine una experiencia clara para quien lo usa con una arquitectura sólida que le respalde, ya sea en aplicaciones web, móviles o de escritorio.
         </p>
         <p>
-          Actualmente estoy fortaleciendo React, TypeScript y arquitectura frontend. Me gusta entender
-          cómo una idea visual puede convertirse en componentes mantenibles, accesibles y fáciles de
-          escalar.
+          Puedo desarrollar desde plataformas completas hasta herramientas especializadas orientadas a necesidades técnicas específicas.
+        </p>
+        <p>
+          Actualmente estoy fortaleciendo React, TypeScript y arquitectura frontend/backend. 
+
         </p>
       </div>
 
