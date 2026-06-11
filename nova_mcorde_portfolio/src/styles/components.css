@@ -1,11 +1,12 @@
 /* ─── Face Navigation ─────────────────────────── */
 
 .face-nav {
-  padding: 20px 18px 24px;
+  padding: 40px 18px 24px;
 }
 
 .face-nav__header {
   display: flex;
+
   flex-direction: column;
   gap: 4px;
   min-height: 82px;
@@ -189,7 +190,7 @@
   margin: 0;
   color: var(--color-text);
   /* Título grande como en el diseño: italic, condensado */
-  font-size: clamp(52px, 7vw, 88px);
+  font-size: clamp(132px, 9vw, 88px);
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.13em;
@@ -198,25 +199,28 @@
 
 .home-name {
   margin-top: 6px;
+  margin-bottom: 250px;
   color: var(--color-text);
   /* Nombre ligeramente más pequeño, también italic */
   font-size: clamp(32px, 4.2vw, 54px);
   font-style: italic;
   letter-spacing: -0.115em;
   line-height: 0.88;
+  
 }
 
 .home-location {
   margin: 12px 0 0 3px;
   font-size: 10px;
   color: var(--color-text-muted);
+  line-height: 6;
 }
 
 .home-section__intro {
   display: grid;
   gap: 20px;
   padding: 16px 0 8px;
-  max-width: 680px;
+  max-width: 880px;
 }
 
 .home-section__intro p:first-child {
@@ -232,7 +236,8 @@
 }
 
 .home-section__welcome {
-  margin: 0;
+  margin: 5px 0 0 0;
+
   font-family: var(--font-hk);
   font-size: clamp(14px, 1.3vw, 17px);
   line-height: 1.45;
@@ -312,8 +317,8 @@
 .first-meet__content {
   display: flex;
   flex-direction: column;
-  gap: 50px;
 }
+
 .first-meet__title {
   margin: 0;
   font-size: clamp(32px, 4.5vw, 56px);
@@ -423,203 +428,199 @@
   color: var(--color-text-soft);
 }
 
-/* ─── Projects Carousel 3D ───────────────────────── */
+/* ─── Carousel3D — escena completa ───────────────────────────── */
+
+.carousel3d-scene {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ─── Info superior ───────────────────────────────────────────── */
+
+.carousel3d-info {
+  display: grid;
+  gap: 6px;
+  max-width: 560px;
+  min-height: 110px; /* evita saltos al cambiar de carta */
+}
+
+.carousel3d-info__eyebrow {
+  margin: 0;
+  font-family: var(--font-hk);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+}
+
+.carousel3d-info__title {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 32px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.08em;
+  line-height: 1;
+  color: var(--color-text);
+  transition: opacity 240ms var(--ease-out);
+}
+
+.carousel3d-info__desc {
+  margin: 0;
+  font-family: var(--font-hk);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  transition: opacity 240ms var(--ease-out);
+}
+
+.carousel3d-info__hint {
+  margin: 4px 0 0;
+  font-family: var(--font-hk);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  color: var(--color-text-soft);
+  font-style: italic;
+}
+
+/* ─── Wrapper + carrusel ─────────────────────────────────────── */
 
 .carousel3d-wrapper {
+  position: relative;
   width: 100%;
-
-  height: 360px;
-
+  height: 340px;
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
-  perspective: 2600px;
-
-  margin-top: 20px;
+  perspective: 2400px;
 }
 
 .carousel3d {
   position: relative;
-
-  width: 240px;
-
-  height: 330px;
-
+  width: 220px;
+  height: 300px;
   transform-style: preserve-3d;
-
-  transition:
-    transform 900ms var(--ease-out);
+  transition: transform 900ms var(--ease-out);
 }
 
 .carousel3d__item {
   position: absolute;
-
   inset: 0;
-
   transform-style: preserve-3d;
 }
 
+/* ─── Carta nueva (c3d-card) ─────────────────────────────────── */
 
-/* ─── Carta ───────────────────────── */
-
-.project-card {
+.c3d-card {
   position: relative;
-
   width: 100%;
   height: 100%;
-
   cursor: pointer;
-
   transform-style: preserve-3d;
-
-  transition:
-    transform 720ms var(--ease-out);
+  transition: transform 720ms var(--ease-out);
 }
 
-.project-card:hover {
-  transform:
-    translateY(-5px);
+/* Solo la carta activa sube un poco al hover */
+.c3d-card--active:not(.c3d-card--flipped):hover {
+  transform: translateY(-6px);
 }
 
-.project-card--flipped {
-  transform:
-    rotateY(180deg);
+.c3d-card--flipped {
+  transform: rotateY(180deg);
 }
 
+/* ─── Ambas caras ────────────────────────────────────────────── */
 
-/* ─── Ambas caras ───────────────────────── */
-
-.project-card__front,
-.project-card__back {
+.c3d-card__front,
+.c3d-card__back {
   position: absolute;
-
   inset: 0;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: space-between;
-
-  border:
-    1px solid var(--color-line-soft);
-
-  border-radius: 28px;
-
+  border-radius: 24px;
   overflow: hidden;
-
   backface-visibility: hidden;
-
   -webkit-backface-visibility: hidden;
-
-  background:
-    #efefef;
 }
 
+/* ─── Frente ─────────────────────────────────────────────────── */
 
-/* ─── Frente ───────────────────────── */
+.c3d-card__front {
+  border: 1px solid var(--color-line-soft);
+  background: #efefef;
+}
 
-.project-card__front img {
+.c3d-card__front img {
   width: 100%;
-
   height: 100%;
-
   object-fit: cover;
-
   display: block;
+  user-select: none;
+  pointer-events: none;
 }
 
+/* ─── Dorso — solo stack ─────────────────────────────────────── */
 
-/* ─── Dorso ───────────────────────── */
-
-.project-card__back {
-  transform:
-    rotateY(180deg);
-
-  padding:
-    24px 22px;
-
-  background:
-    var(--color-bg);
-
-  box-shadow:
-    0 8px 32px rgba(0,0,0,.08);
+.c3d-card__back {
+  transform: rotateY(180deg);
+  background: var(--color-bg);
+  border: 1px solid var(--color-line-soft);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 22px;
 }
 
-.project-card__back h3 {
-  margin: 0 0 10px;
-
-  font-size: 19px;
-
-  font-weight: 400;
-
-  letter-spacing: -.07em;
-
-  color:
-    var(--color-text);
-}
-
-.project-card__back p {
+.c3d-card__back-label {
   margin: 0;
-
-  color:
-    var(--color-text-muted);
-
-  font-family:
-    var(--font-hk);
-
-  font-size: 12px;
-
-  line-height: 1.45;
+  font-family: var(--font-hk);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
 }
 
-/* ─── Carousel Controls ───────────────────────── */
+.c3d-card__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.c3d-card__tech {
+  padding: 6px 12px;
+  border: 1px solid var(--color-line-soft);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.02);
+  color: var(--color-text-muted);
+  font-family: var(--font-hk);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+}
+
+/* ─── Controles ──────────────────────────────────────────────── */
 
 .carousel3d-controls {
   position: absolute;
-
-  bottom: -12px;
-
+  bottom: -10px;
   left: 50%;
-
-  transform:
-    translateX(-50%);
-
+  transform: translateX(-50%);
   display: flex;
-
-  gap: 12px;
-
+  gap: 10px;
   z-index: 5;
 }
 
 .carousel3d-button {
-  width: 38px;
-
-  height: 38px;
-
+  width: 36px;
+  height: 36px;
   display: grid;
-
   place-items: center;
-
-  border:
-    1px solid
-    var(--color-line-soft);
-
-  border-radius:
-    999px;
-
-  background:
-    rgba(255,255,255,.75);
-
-  color:
-    var(--color-text-muted);
-
-  font-size:
-    14px;
-
+  border: 1px solid var(--color-line-soft);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-muted);
+  font-size: 13px;
   transition:
     transform 180ms var(--ease-out),
     background 180ms var(--ease-out),
@@ -627,72 +628,26 @@
 }
 
 .carousel3d-button:hover {
-  transform:
-    translateY(-2px);
-
-  background:
-    white;
-
-  color:
-    var(--color-text);
-
-  box-shadow:
-    0 4px 18px rgba(0,0,0,.06);
+  transform: translateY(-2px);
+  background: white;
+  color: var(--color-text);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 .carousel3d-button:active {
-  transform:
-    scale(.95);
+  transform: scale(0.95);
 }
 
-
-/* ─── Stack ───────────────────────── */
-
-.project-card__stack {
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 7px;
-
-  margin-top: 20px;
-}
-
-.project-card__stack span {
-  padding:
-    5px 10px;
-
-  border:
-    1px solid var(--color-line-soft);
-
-  border-radius:
-    999px;
-
-  background:
-    rgba(0,0,0,.03);
-
-  color:
-    var(--color-text-muted);
-
-  font-size:
-    10.5px;
-}
-
-
-/* ─── Responsive ───────────────────────── */
+/* ─── Responsive ─────────────────────────────────────────────── */
 
 @media (max-width: 860px) {
-
   .carousel3d-wrapper {
     height: 280px;
   }
-
   .carousel3d {
     width: 180px;
-
     height: 250px;
   }
-
 }
 
 
