@@ -1,4 +1,4 @@
-import { ProjectCard } from '../components/ProjectCard/ProjectCard'
+import { SardineCan } from '../components/SardineCan/SardineCan'
 import { projects } from '../data/portfolio'
 import { SectionShell } from './SectionShell'
 
@@ -10,13 +10,13 @@ export function ProjectsSection() {
         manejado hasta el momento.
       </p>
 
-      <div className="project-carousel" aria-label="Lista de proyectos destacados">
+      <div className="sardine-can-grid" aria-label="Lista de proyectos destacados">
         {projects.map((project) => (
-          <ProjectCard project={project} key={project.title} />
+          <SardineCan project={project} key={project.title} />
         ))}
-        <article className="project-card project-card--empty">
+        <div className="sardine-can sardine-can--empty" aria-hidden="true">
           <span>Próximamente...</span>
-        </article>
+        </div>
       </div>
     </SectionShell>
   )

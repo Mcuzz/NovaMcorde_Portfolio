@@ -1,0 +1,347 @@
+/* ─── Sardine Can Project Cards ──────────────────────── */
+
+.sardine-can-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 35px;
+}
+
+.sardine-can {
+  position: relative;
+  aspect-ratio: 5 / 3;
+  border-radius: 65px;
+  overflow: hidden;
+  background: #3f0a0c;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.24);
+  --can-red: #e13734;
+  --can-red-shadow: #000;
+  --can-red-deep: #7a1f17;
+  --can-red-light: #ff6262;
+}
+
+/* ─── Interior (galería) ───────────────────────────────── */
+
+.sardine-can__interior {
+  position: absolute;
+  inset: 0;
+}
+
+.sardine-can__gallery {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.sardine-can__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out);
+}
+
+.sardine-can__image.is-active {
+  opacity: 1;
+}
+
+.sardine-can__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.28);
+  color: #fdfaf5;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 220ms ease, background 160ms ease;
+  z-index: 2;
+}
+
+.sardine-can.is-open .sardine-can__arrow {
+  opacity: 0.5;
+}
+
+.sardine-can__arrow:hover {
+  opacity: 1 !important;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.sardine-can__arrow--prev {
+  left: 12px;
+}
+
+.sardine-can__arrow--next {
+  right: 12px;
+}
+
+.sardine-can__details {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  border: 0;
+  background: rgba(0, 0, 0, 0.32);
+  color: rgba(255, 250, 245, 0.85);
+  font-family: var(--font-hk);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  z-index: 2;
+}
+
+.sardine-can.is-open .sardine-can__details {
+  opacity: 0.8;
+}
+
+.sardine-can__details:hover {
+  opacity: 1 !important;
+}
+
+/* ─── Tapa ──────────────────────────────────────────────── */
+
+.sardine-can__lid {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border: 0;
+  padding: 18px 20px;
+  text-align: left;
+  background: var(--can-red);
+  color: var(--can-red);
+  transition:
+    transform
+    680ms
+    var(--ease-out)
+    140ms;
+  transform: translateX(0);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.sardine-can.is-open .sardine-can__lid {
+  transform: translateX(-88%);
+}
+
+/* ─── Emblema: dos círculos y un rectangulo con efecto de eco ──────────── */
+
+.sardine-can__emblem {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  width: 86px;
+  height: 76px;
+
+  transform-origin: 47px 12px;
+
+  transition:
+  transform 680ms 
+  cubic-bezier(.18,.9,.24,1.25);
+}
+
+.sardine-can__emblem-circle {
+  position: absolute;
+  border-radius: 60%;
+  background: var(--can-red);
+  box-shadow: 
+     4px 1px 0 0 var(--can-red-shadow),
+    -2px -1px 0 0 var(--can-red-light);
+
+  transition:
+  box-shadow 180ms ease;
+}
+
+.sardine-can__emblem-rectangle {
+  position: absolute;
+  border-radius: 40%;
+  background: var(--can-red);
+
+}
+
+.sardine-can__emblem-rectangle--base {
+  top: -7px;
+  left: 10px;
+  width: 95px;
+  height: 65px;
+
+  rotate: 40deg;
+    box-shadow: 
+     10px -4px 0 0 var(--can-red-shadow),
+    -5px 4px 0 0 var(--can-red-light);
+}
+
+.sardine-can__emblem-circle--a {
+  top: 1;
+  right: 35px;
+  width: 24px;
+  height: 24px;
+}
+
+.sardine-can__emblem-circle--b {
+  bottom: 13px;
+  right: -2px;
+  width: 25px;
+  height: 45px;
+
+  box-shadow: 
+     4px -1px 0 0 var(--can-red-shadow),
+    -3px 4px 0 0 var(--can-red-light);
+  rotate: 45deg;
+  
+}
+
+/* Animacion*/
+
+@keyframes pull-ring {
+
+  0% {
+    transform:
+      rotate(0deg)
+      translateY(0);
+  }
+
+  35% {
+    transform:
+      rotate(-22deg)
+      translateY(2px);
+  }
+
+  55% {
+    transform:
+      rotate(-16deg)
+      translateY(-1px);
+  }
+
+  72% {
+    transform:
+      rotate(-20deg);
+  }
+
+  100% {
+    transform:
+      rotate(-18deg);
+  }
+
+}
+
+.sardine-can.is-open .sardine-can__emblem {
+  animation:
+    pull-ring 700ms
+    cubic-bezier(.22,.8,.3,1)
+    forwards;
+  
+}
+
+/* ─── Texto grabado (efecto eco) ───────────────────────── */
+
+.sardine-can__description {
+  position: absolute;
+  top: 32px;
+  right: 35px;
+  max-width: 50%;
+  font-family: var(--font-helvetica);
+  font-size: clamp(10px, 1.2vw, 13px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: right;
+  text-transform: uppercase;
+  color: var(--can-red-light);
+  text-shadow: 
+    0.5px 0.5px 0 var(--can-red-shadow),
+    -0.5px -0.5px 0 var(--can-red-light);
+}
+
+.sardine-can__stack {
+  position: absolute;
+  top: 64px;
+  right: 20px;
+  max-width: 64%;
+  font-family: var(--font-hk);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-align: right;
+  text-transform: uppercase;
+  color: var(--can-red-shadow);
+  text-shadow: 2px 2px 0 var(--can-red-deep);
+  opacity: 0.85;
+}
+
+.sardine-can__title {
+  position: absolute;
+  left: 25px;
+  bottom: 20px;
+  max-width: 90%;
+  font-family: var(--font-helvetica);
+  font-size: clamp(30px, 6vw, 54px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--can-red);
+  text-shadow: 
+     5px 3px 0 var(--can-red-shadow),
+    -3px -1px 0 var(--can-red-light);
+}
+
+/* Borde derecho de la tapa: la "pestaña" que queda visible al abrir */
+.sardine-can__tab {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 14%;
+  border-left: 1px solid rgba(0, 0, 0, 0.16);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.12));
+}
+
+.sardine-can__tab::before,
+.sardine-can__tab::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 60%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.45);
+  transform: translateX(-50%);
+}
+
+.sardine-can__tab::before {
+  top: 46%;
+}
+
+.sardine-can__tab::after {
+  top: 54%;
+}
+
+/* ─── Placeholder "Próximamente" ───────────────────────── */
+
+.sardine-can--empty {
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--color-line-soft);
+  color: var(--color-text-soft);
+  font-family: var(--font-hk);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ─── Responsive ────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .sardine-can-grid {
+    grid-template-columns: 1fr;
+  }
+}

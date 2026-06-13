@@ -20,6 +20,7 @@ export type Project = {
   href?: string
   status?: 'live' | 'soon'
   image: string
+  images?: string[]
 }
 
 export type SkillGroup = {
