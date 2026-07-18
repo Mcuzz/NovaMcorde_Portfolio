@@ -1,0 +1,305 @@
+/* ─── Mobile Top Bar ──────────────────────────────────── */
+
+.mobile-nav-bar {
+  display: none;
+}
+
+.mobile-nav-bar__mark {
+  display: flex;
+  align-items: center;
+  width: 22px;
+  height: 22px;
+  color: var(--color-text);
+}
+
+.mobile-nav-bar__mark svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.mobile-nav-bar__mark svg rect,
+.mobile-nav-bar__mark svg path {
+  fill: currentColor;
+}
+
+.mobile-nav-bar__toggle {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 0;
+  background: transparent;
+}
+
+.mobile-nav-bar__toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition:
+    transform 220ms var(--ease-out),
+    opacity 180ms ease;
+}
+
+.mobile-nav-bar__toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-nav-bar__toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-nav-bar__toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ─── Drawer ───────────────────────────────────────────── */
+
+.mobile-nav-drawer {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  z-index: 119;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 22px 20px 26px;
+  background: var(--color-surface-raised);
+  border-bottom: 1px solid var(--color-line);
+  transform: translateY(-12px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 220ms var(--ease-out),
+    opacity 200ms ease;
+}
+
+.mobile-nav-drawer.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-drawer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-nav-drawer__link {
+  border: 0;
+  border-bottom: 1px solid var(--color-line-soft);
+  background: transparent;
+  text-align: left;
+  padding: 10px 0;
+  font-family: var(--font-helvetica);
+  font-size: 22px;
+  font-style: italic;
+  letter-spacing: -0.05em;
+  color: var(--color-text-muted);
+}
+
+.mobile-nav-drawer__link.is-active {
+  color: var(--color-accent);
+}
+
+.mobile-nav-drawer__reset {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  padding: 8px 14px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-hk);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mobile-nav-drawer__reset svg {
+  width: 14px;
+  height: 14px;
+}
+
+.mobile-nav-drawer__contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0;
+  padding: 14px 0 0;
+  list-style: none;
+  border-top: 1px solid var(--color-line-soft);
+}
+
+.mobile-nav-drawer__contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-family: var(--font-hk);
+  font-size: 10.5px;
+}
+
+.mobile-nav-drawer__icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.mobile-nav-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 118;
+  border: 0;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+/* ─── Face Backdrop (watermark decorativo) ────────────── */
+
+.face-backdrop {
+  display: none;
+}
+
+.face-backdrop__canvas {
+  display: block;
+}
+
+/* ─── Mobile Action Dock ──────────────────────────────── */
+/* Panel horizontal flotante que reúne theme-switch + generate-card,
+   con el mismo lenguaje visual "ortogonal" que sus versiones desktop. */
+
+.mobile-action-dock {
+  display: none;
+}
+
+.mobile-action-dock__theme,
+.mobile-action-dock__generate {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--color-line);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--color-text-muted);
+  padding: 7px 11px;
+  font-family: var(--font-hk);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    background 180ms ease;
+}
+
+.mobile-action-dock__theme:hover,
+.mobile-action-dock__generate:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.mobile-action-dock__theme-track {
+  position: relative;
+  width: 34px;
+  height: 16px;
+  border: 1px solid var(--color-line-soft);
+  border-radius: 2px;
+  background: var(--color-bg-soft);
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.mobile-action-dock__theme-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 10px;
+  border-radius: 1px;
+  background: var(--color-text);
+  transition:
+    transform 180ms var(--ease-out),
+    background 180ms ease;
+}
+
+.mobile-action-dock__theme[aria-pressed='true'] .mobile-action-dock__theme-track {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.mobile-action-dock__theme[aria-pressed='true'] .mobile-action-dock__theme-thumb {
+  transform: translateX(18px);
+  background: var(--color-accent);
+}
+
+/* ─── Activación en breakpoint móvil ──────────────────── */
+
+@media (max-width: 860px) {
+  .mobile-nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 120;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 18px;
+    background: var(--color-surface-raised);
+    border-bottom: 1px solid var(--color-line);
+    backdrop-filter: blur(6px);
+  }
+
+  .portfolio-shell--mobile .content-panel {
+    padding-top: 80px;
+    padding-bottom: 96px;
+  }
+
+  .face-backdrop {
+    display: block;
+    position: fixed;
+    top: 64px;
+    right: -60px;
+    z-index: 0;
+    opacity: 0.14;
+    pointer-events: none;
+  }
+
+  .face-backdrop__canvas {
+    width: 300px !important;
+    height: 300px !important;
+    transform: scale(1.6);
+  }
+
+  .mobile-action-dock {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    z-index: 121;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border: 1px solid var(--color-line);
+    border-radius: 6px;
+    background: var(--color-surface-raised);
+    box-shadow: 0 12px 32px var(--color-shadow);
+    backdrop-filter: blur(6px);
+  }
+}

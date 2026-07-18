@@ -29,6 +29,25 @@
   overflow: visible;
 }
 
+/* En vez de solo desvanecerse junto con el fondo, la marca "viaja" hacia
+   la esquina superior izquierda — donde queda el logo persistente en el
+   MobileNav — dando la sensación de que el splash se convierte en él. */
+@media (max-width: 860px) {
+  .splash-screen.is-exiting .splash-screen__mark {
+    animation: splash-mark-dock 520ms var(--ease-out) forwards;
+  }
+
+  @keyframes splash-mark-dock {
+    to {
+      transform: translate(calc(-50vw + 30px), calc(-50vh + 28px)) scale(0.12);
+    }
+  }
+}
+
+.splash-screen--reduced.is-exiting .splash-screen__mark {
+  animation: none !important;
+}
+
 /* ─── Cruz: trazo + relleno ──────────────────────── */
 
 .splash-piece__outline {

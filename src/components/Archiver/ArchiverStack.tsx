@@ -166,7 +166,7 @@ export function ArchiverStack({ projects }: ArchiverStackProps) {
         {/* controles: botones + indicador a la derecha del stack */}
 
         <div className="archiver-stack-wrap">
-          <div className="archiver-stack">
+          <div className="archiver-stack" style={{ '--stack-count': total } as React.CSSProperties}>
             {order.map((dataIdx) => {
               const project = projects[dataIdx];
               const pos = order.indexOf(dataIdx);
@@ -200,6 +200,7 @@ export function ArchiverStack({ projects }: ArchiverStackProps) {
                   style={
                     {
                       "--depth-z": `${depthZ(pos)}px`,
+                      "--pos": pos,
                       zIndex,
                     } as React.CSSProperties
                   }
@@ -310,13 +311,11 @@ export function ArchiverStack({ projects }: ArchiverStackProps) {
         </div>
       </div>
 
-       <ProjectModal
+      <ProjectModal
         project={modalProject}
         index={modalProject ? projects.indexOf(modalProject) : undefined}
         onClose={() => setModalProject(null)}
       />
     </>
-    
   );
- 
 }
