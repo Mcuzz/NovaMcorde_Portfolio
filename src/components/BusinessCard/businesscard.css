@@ -347,31 +347,29 @@
 
 @media (max-width: 860px) {
   .business-card-toolbar {
-    right: 10px;
-    gap: 6px;
+    top: auto;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    transform: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 16px;
   }
+
   .business-card-toolbar button,
   .business-card-toolbar a {
-    width: 32px;
-    height: 32px;
-    font-size: 11px;
+    width: 34px;
+    height: 34px;
+    font-size: 12px;
   }
-}
 
-.shared-card-page {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  background: var(--color-bg);
-}
-
-.shared-card-page__link {
-  color: var(--color-accent);
-  font-family: var(--font-hk);
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-decoration: none;
+  .business-card-toolbar__toast {
+    right: auto;
+    left: 50%;
+    top: -28px;
+    transform: translateX(-50%);
+  }
 }

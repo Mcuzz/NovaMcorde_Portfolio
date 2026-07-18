@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { toPng } from "html-to-image";
 import { profile } from "../../data/portfolio";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import { CardFace } from "./CardFace";
 
 type BusinessCardProps = {
@@ -42,6 +43,7 @@ export function BusinessCard({ photoSrc, onClose }: BusinessCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const confettiCanvasRef = useRef<HTMLCanvasElement>(null);
   const [copyLabel, setCopyLabel] = useState("Copy link");
+  const isMobile = useIsMobile();
 
   // ── confetti burst ──────────────────────────────────────────
   useEffect(() => {
@@ -196,12 +198,18 @@ return createPortal(
         <button type="button" onClick={handlePrint} title="Print">🖨</button>
         <button type="button" onClick={handleCopyLink} title="Copy link">🔗</button>
         <button type="button" onClick={handleCopyEmbed} title="Embed code">{"</>"}</button>
-        <a href={shareLinks.whatsapp} target="_blank" rel="noreferrer" title="WhatsApp">◐</a>
-        <a href={shareLinks.facebook} target="_blank" rel="noreferrer" title="Facebook">f</a>
-        <a href={shareLinks.x} target="_blank" rel="noreferrer" title="X">✕</a>
         <a href={shareLinks.linkedin} target="_blank" rel="noreferrer" title="LinkedIn">in</a>
-        <a href={shareLinks.email} title="Email">✉</a>
-        <a href={shareLinks.sms} title="Message">💬</a>
+
+        {isMobile && (
+          <>
+            <a href={shareLinks.whatsapp} target="_blank" rel="noreferrer" title="WhatsApp">◐</a>
+            <a href={shareLinks.facebook} target="_blank" rel="noreferrer" title="Facebook">f</a>
+            <a href={shareLinks.x} target="_blank" rel="noreferrer" title="X">✕</a>
+            <a href={shareLinks.email} title="Email">✉</a>
+            <a href={shareLinks.sms} title="Message">💬</a>
+          </>
+        )}
+
         {copyLabel !== "Copy link" && (
           <span className="business-card-toolbar__toast">{copyLabel}</span>
         )}
