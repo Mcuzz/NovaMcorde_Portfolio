@@ -721,9 +721,9 @@
   .archiver-controls {
     position: static;
     margin: 0;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
   }
 
   .projects-layout {
