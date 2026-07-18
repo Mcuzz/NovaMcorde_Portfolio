@@ -1,0 +1,100 @@
+.wave-text {
+  display: grid;
+  width: fit-content;
+  font-family: var(--font-helvetica);
+}
+
+.wave-text__line {
+  display: block;
+}
+
+/* Ola doble continua:
+   La animación usa un ciclo donde DOS olas recorren el texto.
+   La primera ola comienza en delay=0, la segunda ola comienza cuando
+   la primera va en su 3ª sílaba (offset de 2 * 0.11s = 0.22s detrás).
+   El truco: cada unidad tiene UN keyframe con dos peaks en tiempos distintos
+   dentro del mismo ciclo, separados por el offset de segunda ola.
+*/
+.wave-text__unit {
+  display: inline-block;
+  animation: dual-wave 3.6s ease-in-out infinite;
+  animation-delay: var(--wave-delay);
+  transform-origin: 50% 85%;
+  will-change: transform, font-style;
+}
+
+/* La segunda ola aparece 0.22s después (2 sílabas × 0.11s) de la primera */
+.wave-text__unit::after {
+  content: none;
+}
+
+@keyframes dual-wave {
+  /* En reposo */
+  0% {
+    font-style: normal;
+    transform: translateY(0) skewX(0deg);
+  }
+
+  /* Peak 1: primera ola */
+  14% {
+    font-style: italic;
+    transform: translateY(-0.055em) skewX(-8deg);
+  }
+
+  /* Bajada ola 1 */
+  26% {
+    font-style: normal;
+    transform: translateY(0) skewX(0deg);
+  }
+
+  /* Peak 2: segunda ola (llega ~0.22s después, proporcional al ciclo de 3.6s → ~6% más tarde) */
+  32% {
+    font-style: italic;
+    transform: translateY(-0.055em) skewX(-8deg);
+  }
+
+  /* Bajada ola 2 + reposo largo */
+  46%,
+  100% {
+    font-style: normal;
+    transform: translateY(0) skewX(0deg);
+  }
+}
+
+@keyframes section-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes snap-flash {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -42%) scale(0.96);
+  }
+  24%,
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -58%) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}

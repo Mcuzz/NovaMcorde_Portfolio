@@ -1,0 +1,114 @@
+/* ─── Splash Screen ──────────────────────────────── */
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  cursor: pointer;
+  opacity: 1;
+}
+
+.splash-screen.is-exiting {
+  animation: splash-exit 520ms var(--ease-out) forwards;
+  pointer-events: none;
+}
+
+@keyframes splash-exit {
+  to {
+    opacity: 0;
+  }
+}
+
+.splash-screen__mark {
+  width: min(30vw, 210px);
+  height: min(30vw, 210px);
+  overflow: visible;
+}
+
+/* ─── Cruz: trazo + relleno ──────────────────────── */
+
+.splash-piece__outline {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 6;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    splash-draw 480ms var(--ease-out) forwards,
+    splash-outline-out 260ms ease forwards;
+  animation-delay:
+    var(--delay),
+    calc(var(--delay) + 560ms);
+}
+
+@keyframes splash-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes splash-outline-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.splash-piece__fill {
+  fill: var(--color-text);
+  opacity: 0;
+  animation: splash-fill-in 320ms var(--ease-out) forwards;
+  animation-delay: calc(var(--delay) + 380ms);
+}
+
+@keyframes splash-fill-in {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ─── Corchetes de las iniciales ─────────────────── */
+
+.splash-bracket {
+  fill: var(--color-text);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.85);
+  animation: splash-bracket-in 420ms var(--ease-out) forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes splash-bracket-in {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ─── Reduced motion ──────────────────────────────── */
+
+.splash-screen--reduced .splash-piece__outline,
+.splash-screen--reduced .splash-piece__fill,
+.splash-screen--reduced .splash-bracket {
+  animation-duration: 1ms !important;
+  animation-delay: 0ms !important;
+  stroke-dashoffset: 0;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.splash-screen--reduced .splash-piece__outline {
+  opacity: 0;
+}
+
+@media (max-width: 860px) {
+  .splash-screen__mark {
+    width: min(40vw, 180px);
+    height: min(40vw, 180px);
+  }
+}

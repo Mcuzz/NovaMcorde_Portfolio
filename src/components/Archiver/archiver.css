@@ -1,0 +1,692 @@
+/* ─── Escena ──────────────────────────────────── */
+
+.archiver-scene {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 32px;
+  margin-top: 180px;
+  margin-left: 200px;
+  
+}
+
+/* columna de controles: botón ↑, dots, botón ↓ — todo vertical */
+.archiver-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 0;
+  margin-top: -620px;
+  margin-left: 760px;
+  
+}
+
+
+
+
+/* ─── Stack ───────────────────────────────────── */
+
+.archiver-stack {
+  position: relative;
+  width: 380px;
+  height: 400px;
+  perspective: 500px;
+  perspective-origin: -50% 8%;
+  transform-style: preserve-3d;
+}
+
+
+/* ─── Folder base ─────────────────────────────── */
+
+.archiver {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 340px;
+  height: 220px;
+  border-radius: 0 3px 3px 3px;
+  background: #2a2926;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  overflow: visible;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.55s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.26);
+  transform: rotateX(-30deg) rotateY(14deg) translateZ(var(--depth-z));
+}
+
+.archiver:nth-child(3n + 1) { background: #2a2926; }
+.archiver:nth-child(3n + 2) { background: #312f2b; }
+.archiver:nth-child(3n)     { background: #383530; }
+
+
+/* ─── Estado activo ───────────────────────────── */
+
+.archiver.is-active {
+  transform:
+    rotateX(-5deg)
+    rotateY(5deg)
+    translateZ(220px)
+    translateY(-80px) !important;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.28) !important;
+  cursor: default;
+}
+
+
+/* ─── Fases de animación ──────────────────────── */
+
+.archiver.is-lift {
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  transform:
+    rotateX(-52deg)
+    rotateY(14deg)
+    translateZ(calc(var(--depth-z) + 80px))
+    translateY(-100px) !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.32) !important;
+}
+
+.archiver.is-fly {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transform:
+    rotateX(-18deg)
+    rotateY(14deg)
+    translateZ(180px)
+    translateY(-60px) !important;
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.30) !important;
+}
+
+.archiver.is-land {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+
+/* ─── Pestaña ─────────────────────────────────── */
+
+.archiver__tab {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  height: 30px;
+  padding: 0 14px;
+  background: #1c1b19;
+  border-radius: 3px 3px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+}
+
+.archiver__tab::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: inherit;
+}
+
+.archiver:nth-child(3n + 1) .archiver__tab { background: #1c1b19; }
+.archiver:nth-child(3n + 2) .archiver__tab { background: #231f1c; }
+.archiver:nth-child(3n)     .archiver__tab { background: #28261f; }
+
+.archiver__tab-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.archiver.is-active .archiver__tab-dot { background: var(--color-accent); }
+
+.archiver__tab-label {
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-hk);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.archiver.is-active .archiver__tab-label { color: var(--color-accent); }
+
+
+/* ─── Cara del folder ─────────────────────────── */
+
+.archiver__face {
+  position: absolute;
+  inset: 0;
+  border-radius: 0 3px 3px 3px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.archiver__img-zone {
+  position: relative;
+  width: 100%;
+  height: 58%;
+  flex-shrink: 0;
+  background: #111110;
+  overflow: hidden;
+}
+
+.archiver__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.archiver__slide.is-active { opacity: 1; }
+
+.archiver__dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  opacity: 0;
+  transition: opacity 0.3s 0.2s;
+  pointer-events: none;
+}
+
+.archiver.is-active .archiver__dots { opacity: 1; }
+
+.archiver__dot {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  transition: background 0.35s;
+}
+
+.archiver__dot.is-active { background: rgba(255, 255, 255, 0.85); }
+
+
+/* ─── Info editorial ──────────────────────────── */
+
+.archiver__info {
+  flex: 1;
+  padding: 10px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  opacity: 0;
+  transition: opacity 0.35s 0.15s;
+}
+
+.archiver.is-active .archiver__info { opacity: 1; }
+
+.archiver__info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.archiver__desc {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-family: var(--font-hk);
+  font-size: 10px;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.archiver__cta {
+  flex-shrink: 0;
+  border: 1px solid rgba(127, 119, 221, 0.45);
+  border-radius: 2px;
+  background: transparent;
+  padding: 3px 9px;
+  color: var(--color-accent);
+  font-family: var(--font-hk);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.archiver__cta:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.archiver__stack {
+  color: rgba(255, 255, 255, 0.25);
+  font-family: var(--font-hk);
+  font-size: 9px;
+  letter-spacing: 0.07em;
+  margin-top: 6px;
+}
+
+
+/* ─── Label en reposo ─────────────────────────── */
+
+.archiver__rest {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 11px 14px;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+.archiver.is-active .archiver__rest { opacity: 0; }
+
+.archiver__rest span {
+  color: rgba(255, 255, 255, 0.18);
+  font-family: var(--font-hk);
+  font-size: 9.5px;
+  font-style: italic;
+  letter-spacing: 0.06em;
+}
+
+
+/* ─── Botones de navegación — horizontales ahora ─────── */
+
+.archiver-nav {
+  display: flex;
+  gap: 6px;
+}
+
+.archiver-nav__btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-line);
+  border-radius: 2px;
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, transform 0.15s;
+}
+
+.archiver-nav__btn:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: scale(1.08);
+}
+
+.archiver-nav__btn:active:not(:disabled) { transform: scale(0.94); }
+.archiver-nav__btn:disabled { opacity: 0.3; cursor: default; }
+
+
+/* ─── Indicador — vertical ────────────────────── */
+
+.archiver-indicator {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.archiver-indicator__dot {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-line);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.archiver-indicator__dot.is-active {
+  background: var(--color-accent);
+  transform: scale(1.5);
+}
+
+
+/* ─── Layout ProjectsSection ──────────────────── */
+
+.projects-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 48px;
+}
+
+.projects-layout .section-lead {
+  padding-top: 196px;
+  max-width: 260px;
+}
+
+
+/* ─── Modal overlay ───────────────────────────── */
+
+.project-modal-overlay {
+  --pm-red: #d1503c;
+
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(17, 17, 15, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+
+.project-modal-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ─── Modal shell ──────────────────────────────── */
+
+.project-modal {
+  position: relative;
+  width: min(680px, 100%);
+  max-height: 86vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--color-bg);
+  border-top: 5px solid var(--color-text);
+  padding: 22px 34px 40px;
+  transform: translateY(18px);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-modal-overlay.is-open .project-modal { transform: translateY(0); }
+
+.project-modal__close {
+  position: absolute;
+  top: 16px; right: 18px;
+  z-index: 3;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  font-size: 13px; line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.project-modal__close:hover {
+  color: var(--pm-red);
+  border-color: var(--pm-red);
+}
+
+/* ─── Masthead ────────────────────────────────── */
+
+.project-modal__masthead {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.project-modal__eyebrow {
+  margin: 0;
+  color: var(--pm-red);
+  font-family: var(--font-hk);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+}
+
+/* ─── Título "spread": se estira, nunca desborda ─── */
+
+.project-modal__title {
+  margin: 4px 0 0;
+  width: 100%;
+  font-size: clamp(30px, 5.6vw, 52px);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-align: justify;
+  text-align-last: justify;
+  text-justify: inter-word;
+  word-break: break-word;
+}
+
+.project-modal__title--single-word {
+  text-justify: inter-character;
+}
+
+.project-modal__rule {
+  height: 5px;
+  margin: 14px 0 0;
+  background: var(--pm-red);
+}
+
+/* ─── Galería principal ──────────────────────────── */
+
+.project-modal__gallery {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 2px;
+  margin: 24px 0;
+  border: 1px solid var(--color-line);
+}
+
+.project-modal__status {
+  position: absolute;
+  top: 10px; right: 10px;
+  z-index: 2;
+  padding: 4px 10px;
+  background: var(--pm-red);
+  color: #fdfaf5;
+  font-family: var(--font-hk);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+.project-modal__status.is-soon { background: var(--color-text); }
+
+.project-modal__img {
+  width: 100%; aspect-ratio: 16/9;
+  object-fit: cover; display: block;
+}
+
+.project-modal__img:first-child { grid-column: 1/-1; aspect-ratio: 16/8; }
+
+/* ─── Cuerpo: descripción + stack ─────────────────── */
+
+.project-modal__body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-left: 18px;
+  border-left: 3px solid var(--pm-red);
+}
+
+.project-modal__desc {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-hk);
+  font-size: 14px; line-height: 1.75;
+  text-align: justify;
+}
+
+.project-modal__desc::first-letter {
+  float: left;
+  font-family: var(--font-helvetica);
+  font-size: 3.2em;
+  font-weight: 800;
+  font-style: italic;
+  line-height: 0.78;
+  padding: 2px 8px 0 0;
+  color: var(--pm-red);
+}
+
+.project-modal__stack { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.project-modal__tag {
+  border: 1px solid var(--color-line-soft);
+  padding: 4px 10px;
+  color: var(--color-text-muted);
+  font-family: var(--font-hk); font-size: 10px; letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.project-modal__link {
+  align-self: flex-start;
+  border: none;
+  border-top: 2px solid var(--pm-red);
+  padding: 10px 0 0;
+  color: var(--pm-red);
+  font-family: var(--font-hk); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase;
+  transition: opacity 0.2s ease;
+}
+
+.project-modal__link:hover { opacity: 0.65; }
+
+/* ─── Carrusel de GIFs (sin scrollbar visible) ────── */
+
+.project-modal__motion {
+  margin: 32px 0 4px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-line);
+}
+
+.project-modal__motion-label {
+  margin: 0 0 14px;
+  color: var(--pm-red);
+  font-family: var(--font-hk);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+}
+
+.project-modal__carousel {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  cursor: grab;
+
+  /* oculta la scrollbar nativa, en todos los navegadores */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  /* el "peek": el padding derecho es menor que el ancho de una tarjeta,
+     así la última siempre se ve cortada = señal de que hay más */
+  padding: 2px 60px 14px 2px;
+  margin-right: -34px;
+}
+
+.project-modal__carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.project-modal__carousel:active {
+  cursor: grabbing;
+}
+
+.project-modal__gif-card {
+  flex: 0 0 auto;
+  width: min(78%, 260px);
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+.project-modal__gif {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--color-line);
+}
+
+.project-modal__gif-caption {
+  margin: 8px 0 0;
+  padding-left: 10px;
+  border-left: 2px solid var(--pm-red);
+  color: var(--color-text-muted);
+  font-family: var(--font-hk);
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+/* ─── Responsive ──────────────────────────────── */
+
+@media (max-width: 860px) {
+  .project-modal { padding: 20px 20px 28px; }
+
+  .project-modal__carousel {
+    padding-right: 40px;
+    margin-right: -20px;
+  }
+
+  .project-modal__gif-card {
+    width: min(82%, 220px);
+  }
+}
+
+
+/* ─── Fix stacking context 3D ─────────────────── */
+
+.archiver-stack-wrap {
+  position: relative;
+  isolation: isolate;
+  width: fit-content;
+}
+
+
+/* ─── Responsive ──────────────────────────────── */
+
+@media (max-width: 860px) {
+  .archiver-stack { height: 340px; }
+  .archiver { width: 280px; height: 186px; }
+  .archiver.is-active {
+    transform: rotateX(-5deg) rotateY(5deg) translateZ(160px) translateY(-60px) !important;
+  }
+  .archiver.is-fly {
+    transform: rotateX(-18deg) rotateY(14deg) translateZ(140px) translateY(-50px) !important;
+  }
+  .projects-layout {
+    grid-template-columns: 1fr;
+  }
+  .projects-layout .section-lead {
+    padding-top: 0;
+    max-width: 100%;
+  }
+  .project-modal { padding: 20px 20px 28px; }
+  .project-modal__gallery { margin: 0 -20px 20px; }
+  .project-modal__rule { margin: 14px -20px 0; }
+
+  .project-modal__motion { margin: 0 -20px 20px; padding: 14px 20px 20px; }
+
+  .project-modal__title--spread {
+    display: block;
+    white-space: normal;
+  }
+
+  .project-modal__title--spread span {
+    display: inline;
+  }
+}

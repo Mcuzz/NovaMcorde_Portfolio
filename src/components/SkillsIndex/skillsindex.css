@@ -1,0 +1,173 @@
+/* ─── Skills Index (estilo editorial) ─────────────────── */
+
+.skills-index {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Masthead ─────────────────────────────────────────── */
+
+.skills-index__masthead {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 22px;
+}
+
+/* ─── Grid de grupos: 2 columnas en desktop ───────────── */
+
+.skills-index__groups {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 44px;
+}
+
+.skills-index__group {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 18px;
+  padding: 24px 0 26px;
+}
+
+/* divisor horizontal: todo grupo a partir de la 2ª fila */
+.skills-index__groups .skills-index__group:nth-child(n + 3) {
+  border-top: 1px solid var(--color-line-soft);
+}
+
+/* divisor vertical: columna derecha en desktop */
+.skills-index__groups .skills-index__group:nth-child(2n) {
+  padding-left: 44px;
+  margin-left: -44px;
+  border-left: 1px solid var(--color-line-soft);
+}
+
+.skills-index__number {
+  font-family: var(--font-helvetica);
+  font-size: clamp(30px, 3.4vw, 40px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  color: var(--color-text-soft);
+}
+
+.skills-index__content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* ─── Lista tipo índice ────────────────────────────────── */
+
+.skills-index__list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skills-index__item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.skills-index__name {
+  flex-shrink: 0;
+  font-family: var(--font-helvetica);
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  transition:
+    transform 220ms var(--ease-out),
+    font-style 220ms var(--ease-out);
+}
+
+.skills-index__item:hover .skills-index__name {
+  font-style: italic;
+  transform: skewX(-4deg) translateX(2px);
+}
+
+.skills-index__leader {
+  flex: 1;
+  height: 0;
+  border-bottom: 1px dotted var(--color-line-soft);
+  transform: translateY(-4px);
+}
+
+.skills-index__tag {
+  flex-shrink: 0;
+  min-width: 62px;
+  text-align: right;
+  font-family: var(--font-hk);
+  font-size: 9.5px;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: var(--color-text-soft);
+}
+
+/* ─── Estado "aprendiendo" ─────────────────────────────── */
+
+.skills-index__item.is-learning .skills-index__name {
+  color: var(--color-text-muted);
+}
+
+.skills-index__item.is-learning .skills-index__leader {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-image: repeating-linear-gradient(
+      90deg,
+      var(--color-accent) 0px,
+      var(--color-accent) 2px,
+      transparent 2px,
+      transparent 6px
+    )
+    1;
+  opacity: 0.55;
+}
+
+.skills-index__item.is-learning .skills-index__tag {
+  color: var(--color-accent);
+}
+
+/* ─── Responsive: 1 columna en móvil ───────────────────── */
+
+@media (max-width: 860px) {
+  .skills-index__groups {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-index__group {
+    grid-template-columns: 40px 1fr;
+    gap: 14px;
+    padding: 20px 0;
+  }
+
+  /* en 1 columna, el divisor horizontal es a partir del 2º grupo */
+  .skills-index__groups .skills-index__group:nth-child(n + 3) {
+    border-top: none;
+  }
+
+  .skills-index__groups .skills-index__group:nth-child(n + 2) {
+    border-top: 1px solid var(--color-line-soft);
+  }
+
+  /* sin divisor vertical en móvil */
+  .skills-index__groups .skills-index__group:nth-child(2n) {
+    padding-left: 0;
+    margin-left: 0;
+    border-left: none;
+  }
+
+  .skills-index__number {
+    font-size: 26px;
+  }
+
+  .skills-index__tag {
+    min-width: 0;
+  }
+}

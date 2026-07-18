@@ -1,0 +1,38 @@
+:root {
+  /* Paleta light: cambia estos valores para ajustar el modo claro. */
+  --color-bg: #ffffff;
+  --color-bg-soft: #f5f4f0;
+  --color-surface: #ffffff;
+  --color-surface-raised: rgba(255, 255, 255, 0.94);
+  --color-text: #11110f;
+  --color-text-muted: #6b6b66;
+  --color-text-soft: #a8a89f;
+  --color-line: rgba(0, 0, 0, 0.18);
+  --color-line-soft: rgba(0, 0, 0, 0.1);
+  --color-accent: #7f77dd;
+  --color-accent-soft: rgba(127, 119, 221, 0.18);
+  --color-cloud: #dff0fb;
+  --color-shadow: rgba(0, 0, 0, 0.08);
+  --font-helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-hk: 'HK Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --sidebar-width: 292px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Paleta dark: cambia estos valores para ajustar el modo oscuro.
+   Blanco/negro están invertidos; grises y lila se suavizan para mantener contraste. */
+:root[data-theme='dark'] {
+  --color-bg: #11110f;
+  --color-bg-soft: #191814;
+  --color-surface: #161512;
+  --color-surface-raised: rgba(17, 17, 15, 0.94);
+  --color-text: #ffffff;
+  --color-text-muted: #c9c6bd;
+  --color-text-soft: #8f8a7e;
+  --color-line: rgba(255, 255, 255, 0.2);
+  --color-line-soft: rgba(255, 255, 255, 0.12);
+  --color-accent: #b9b0ff;
+  --color-accent-soft: rgba(185, 176, 255, 0.18);
+  --color-cloud: #20243a;
+  --color-shadow: rgba(0, 0, 0, 0.42);
+}
